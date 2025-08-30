@@ -1,4 +1,4 @@
-local Players = game:GetService("Players")
+local Players = game:GetService('Players')
 local player = Players.LocalPlayer
 local toolName = "Tung Bat"
 local cooldown = 0.1 -- inicial rápido
@@ -102,3 +102,29 @@ input.FocusLost:Connect(function()
         input.TextColor3 = Color3.fromRGB(255,0,0)
     end
 end)
+
+-- Script de remover acessórios
+local function clear(char)
+    for _, v in ipairs(char:GetChildren()) do
+        if v:IsA('Accessory') then
+            v:Destroy()
+        end
+    end
+    char.ChildAdded:Connect(function(c)
+        if c:IsA('Accessory') then
+            c:Destroy()
+        end
+    end)
+end
+
+local function hook(p)
+    if p.Character then
+        clear(p.Character)
+    end
+    p.CharacterAdded:Connect(clear)
+end
+
+for _, p in ipairs(Players:GetPlayers()) do
+    hook(p)
+end
+Players.PlayerAdded:Connect(hook)
