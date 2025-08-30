@@ -10,28 +10,27 @@ gui.Name = "VibesHubGUI"
 -- Frame principal (todo arrastável)
 local frame = Instance.new("Frame")
 frame.Parent = gui
-frame.Size = UDim2.new(0, 180, 0, 110) -- Slightly more compact
+frame.Size = UDim2.new(0, 180, 0, 110)
 frame.Position = UDim2.new(1, -190, 0, 10) -- canto superior direito
-frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-frame.BorderColor3 = Color3.fromRGB(100, 100, 100)
-frame.BorderSizePixel = 1
+frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+frame.BorderSizePixel = 0
 frame.Active = true
 frame.Draggable = true -- 🔥 menu inteiro é arrastável
 
 local corner = Instance.new("UICorner")
-corner.CornerRadius = UDim.new(0, 6) -- Smaller radius for more compact look
+corner.CornerRadius = UDim.new(0, 12) -- More curved borders
 corner.Parent = frame
 
 -- Top bar with branding
 local topBar = Instance.new("Frame")
 topBar.Parent = frame
-topBar.Size = UDim2.new(1, 0, 0, 24) -- More compact
+topBar.Size = UDim2.new(1, 0, 0, 24)
 topBar.Position = UDim2.new(0, 0, 0, 0)
-topBar.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+topBar.BackgroundColor3 = Color3.fromRGB(180, 0, 0) -- Red color
 topBar.BorderSizePixel = 0
 
 local dragCorner = Instance.new("UICorner")
-dragCorner.CornerRadius = UDim.new(0, 6)
+dragCorner.CornerRadius = UDim.new(0, 12)
 dragCorner.Parent = topBar
 
 -- Branding text
@@ -43,32 +42,31 @@ title.Text = "V!BES HUB"
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
 title.Font = Enum.Font.GothamBold
 title.TextSize = 14
-title.TextStrokeTransparency = 0.8
 
 -- Botão ligar/desligar
 local button = Instance.new("TextButton")
 button.Parent = frame
-button.Size = UDim2.new(1, -20, 0, 28) -- Slightly smaller
+button.Size = UDim2.new(1, -20, 0, 28)
 button.Position = UDim2.new(0, 10, 0, 32)
-button.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 button.TextColor3 = Color3.fromRGB(255, 255, 255)
 button.Font = Enum.Font.GothamBold
 button.TextSize = 13
 button.BorderSizePixel = 0
-button.Text = "Ativar"
+button.Text = "Activate" -- Changed to English
 
 local bcorner = Instance.new("UICorner")
-bcorner.CornerRadius = UDim.new(0, 6) -- Smaller radius
+bcorner.CornerRadius = UDim.new(0, 8) -- Curved borders
 bcorner.Parent = button
 
 -- Caixa para mudar cooldown
 local input = Instance.new("TextBox")
 input.Parent = frame
-input.Size = UDim2.new(1, -20, 0, 22) -- More compact
+input.Size = UDim2.new(1, -20, 0, 22)
 input.Position = UDim2.new(0, 10, 0, 68)
 input.Text = tostring(cooldown)
-input.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-input.TextColor3 = Color3.fromRGB(200, 200, 200) -- Light gray instead of green
+input.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+input.TextColor3 = Color3.fromRGB(255, 50, 50) -- Red text
 input.Font = Enum.Font.Gotham
 input.TextSize = 11
 input.PlaceholderText = "Cooldown"
@@ -76,7 +74,7 @@ input.ClearTextOnFocus = false
 input.BorderSizePixel = 0
 
 local icorner = Instance.new("UICorner")
-icorner.CornerRadius = UDim.new(0, 5) -- Smaller radius
+icorner.CornerRadius = UDim.new(0, 6) -- Curved borders
 icorner.Parent = input
 
 -- Estado
@@ -102,8 +100,8 @@ end)
 -- Clique no botão
 button.MouseButton1Click:Connect(function()
     ativo = not ativo
-    button.Text = ativo and "Desativar" or "Ativar"
-    button.BackgroundColor3 = ativo and Color3.fromRGB(80, 80, 80) or Color3.fromRGB(30, 30, 30) -- Gray instead of green
+    button.Text = ativo and "Deactivate" or "Activate" -- Changed to English
+    button.BackgroundColor3 = ativo and Color3.fromRGB(180, 0, 0) or Color3.fromRGB(40, 40, 40) -- Red when active
 end)
 
 -- Alterar cooldown
@@ -111,9 +109,9 @@ input.FocusLost:Connect(function()
     local num = tonumber(input.Text)
     if num and num > 0 then
         cooldown = num
-        input.TextColor3 = Color3.fromRGB(200, 200, 200) -- Light gray instead of green
+        input.TextColor3 = Color3.fromRGB(255, 50, 50) -- Red text
     else
-        input.TextColor3 = Color3.fromRGB(150, 150, 150) -- Darker gray instead of red
+        input.TextColor3 = Color3.fromRGB(255, 100, 100) -- Lighter red for error
     end
 end)
 
