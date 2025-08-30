@@ -1,0 +1,104 @@
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local toolName = "Tung Bat"
+local cooldown = 0.1 -- inicial rápido
+
+-- GUI principal
+local gui = Instance.new("ScreenGui", game.CoreGui)
+
+-- Frame principal (todo arrastável)
+local frame = Instance.new("Frame")
+frame.Parent = gui
+frame.Size = UDim2.new(0, 180, 0, 120)
+frame.Position = UDim2.new(1, -200, 0, 20) -- canto superior direito
+frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+frame.BackgroundTransparency = 0.15
+frame.BorderSizePixel = 0
+frame.Active = true
+frame.Draggable = true -- 🔥 menu inteiro é arrastável
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 10)
+corner.Parent = frame
+
+-- "Espaçozinho" em cima (apenas estético)
+local topBar = Instance.new("Frame")
+topBar.Parent = frame
+topBar.Size = UDim2.new(1, 0, 0, 28) -- espaço maior em cima
+topBar.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+topBar.BorderSizePixel = 0
+
+local dragCorner = Instance.new("UICorner")
+dragCorner.CornerRadius = UDim.new(0, 10)
+dragCorner.Parent = topBar
+
+-- Botão ligar/desligar
+local button = Instance.new("TextButton")
+button.Parent = frame
+button.Size = UDim2.new(1, -20, 0, 30)
+button.Position = UDim2.new(0, 10, 0, 38)
+button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+button.TextColor3 = Color3.fromRGB(255, 255, 255)
+button.Font = Enum.Font.GothamBold
+button.TextSize = 14
+button.BorderSizePixel = 0
+button.Text = "Ativar"
+
+local bcorner = Instance.new("UICorner")
+bcorner.CornerRadius = UDim.new(0, 8)
+bcorner.Parent = button
+
+-- Caixa para mudar cooldown
+local input = Instance.new("TextBox")
+input.Parent = frame
+input.Size = UDim2.new(1, -20, 0, 25)
+input.Position = UDim2.new(0, 10, 0, 78)
+input.Text = tostring(cooldown)
+input.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+input.TextColor3 = Color3.fromRGB(0, 255, 0)
+input.Font = Enum.Font.Gotham
+input.TextSize = 12
+input.ClearTextOnFocus = false
+input.BorderSizePixel = 0
+
+local icorner = Instance.new("UICorner")
+icorner.CornerRadius = UDim.new(0, 6)
+icorner.Parent = input
+
+-- Estado
+local ativo = false
+
+-- Loop de equipar/desequipar
+task.spawn(function()
+    while true do
+        if ativo then
+            local char = player.Character
+            local humanoid = char and char:FindFirstChildOfClass("Humanoid")
+            local tool = player.Backpack:FindFirstChild(toolName) or (char and char:FindFirstChild(toolName))
+            if humanoid and tool then
+                humanoid:EquipTool(tool)
+                task.wait(cooldown)
+                humanoid:UnequipTools()
+            end
+        end
+        task.wait(cooldown)
+    end
+end)
+
+-- Clique no botão
+button.MouseButton1Click:Connect(function()
+    ativo = not ativo
+    button.Text = ativo and "Desativar" or "Ativar"
+    button.BackgroundColor3 = ativo and Color3.fromRGB(0, 120, 0) or Color3.fromRGB(40, 40, 40)
+end)
+
+-- Alterar cooldown
+input.FocusLost:Connect(function()
+    local num = tonumber(input.Text)
+    if num and num > 0 then
+        cooldown = num
+        input.TextColor3 = Color3.fromRGB(0,255,0)
+    else
+        input.TextColor3 = Color3.fromRGB(255,0,0)
+    end
+end)
