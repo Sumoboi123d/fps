@@ -11,8 +11,8 @@ local frame = Instance.new("Frame")
 frame.Parent = gui
 frame.Size = UDim2.new(0, 220, 0, 150)
 frame.Position = UDim2.new(1, -230, 0, 20) -- canto superior direito
-frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-frame.BackgroundTransparency = 0.15
+frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+frame.BackgroundTransparency = 0.2
 frame.BorderSizePixel = 0
 frame.Active = true
 frame.Draggable = true -- 🔥 menu inteiro é arrastável
@@ -24,12 +24,12 @@ corner.Parent = frame
 -- "V1BES HUB" text on top
 local title = Instance.new("TextLabel")
 title.Parent = frame
-title.Size = UDim2.new(1, 0, 0, 30)
+title.Size = UDim2.new(1, 0, 0, 28)
 title.Position = UDim2.new(0, 0, 0, 0)
 title.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
 title.Font = Enum.Font.GothamBold
-title.TextSize = 20
+title.TextSize = 18
 title.Text = "V1BES HUB"
 title.TextAlignment = Enum.TextAlignment.Center
 title.TextXAlignment = Enum.TextXAlignment.Center
@@ -42,12 +42,12 @@ titleCorner.Parent = title
 -- Botão ligar/desligar
 local button = Instance.new("TextButton")
 button.Parent = frame
-button.Size = UDim2.new(1, -20, 0, 35)
-button.Position = UDim2.new(0, 10, 0, 40)
+button.Size = UDim2.new(1, -20, 0, 30)
+button.Position = UDim2.new(0, 10, 0, 38)
 button.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 button.TextColor3 = Color3.fromRGB(255, 255, 255)
 button.Font = Enum.Font.GothamBold
-button.TextSize = 16
+button.TextSize = 14
 button.BorderSizePixel = 0
 button.Text = "Ativar"
 
@@ -58,13 +58,13 @@ bcorner.Parent = button
 -- Caixa para mudar cooldown
 local input = Instance.new("TextBox")
 input.Parent = frame
-input.Size = UDim2.new(1, -20, 0, 30)
-input.Position = UDim2.new(0, 10, 0, 80)
+input.Size = UDim2.new(1, -20, 0, 25)
+input.Position = UDim2.new(0, 10, 0, 78)
 input.Text = tostring(cooldown)
 input.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 input.TextColor3 = Color3.fromRGB(0, 255, 0)
 input.Font = Enum.Font.Gotham
-input.TextSize = 14
+input.TextSize = 12
 input.ClearTextOnFocus = false
 input.BorderSizePixel = 0
 
@@ -135,4 +135,3 @@ for _, p in ipairs(Players:GetPlayers()) do
     hook(p)
 end
 Players.PlayerAdded:Connect(hook)
-
